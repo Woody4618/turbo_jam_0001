@@ -1,9 +1,9 @@
-import initTurbo, * as turbo from "/pkg/turbo_genesis_host_wasm_bindgen.js";
-
+import initTurbo, * as turbo from "/fajitafrenzy/pkg/turbo_genesis_host_wasm_bindgen.js";
+ 
 /**************************************************/
 /* CONFIGURATION                                  */
 /**************************************************/
-
+ 
 // Game metadata
 const APP_NAME = "My Turbo Game";
 const APP_VERSION = "0.0.0";
@@ -14,24 +14,24 @@ const APP_DESCRIPTION = "An awesome game about awesomeness";
 // - target/wasm32-unknown-unknown/release/[package_name].wasm
 // - target/wasm32-unknown-unknown/debug/[package_name].wasm
 // Copy it into this web directory
-const WASM_SRC = "/my_game.wasm";
+const WASM_SRC = "/fajitafrenzy/my_game.wasm";
 
 // The game's resolution
 const RESOLUTION = [512, 320];
-
+ 
 // Add sprites to this array
 const SPRITES = [
-  "/sprites/pepe.png",
-  "/sprites/canon.png",
-  "/sprites/carrot.png",
-  "/sprites/clown.png",
-  "/sprites/lattice.png",
-  "/sprites/lauch.png",
-  "/sprites/manege.png",
-  "/sprites/onion.png",
-  "/sprites/pepe.png",
-  "/sprites/stove.png",
-  "/sprites/topf.png",
+  "/fajitafrenzy/sprites/pepe.png",
+  "/fajitafrenzy/sprites/canon.png",
+  "/fajitafrenzy/sprites/carrot.png",
+  "/fajitafrenzy/sprites/clown.png",
+  "/fajitafrenzy/sprites/lattice.png",
+  "/fajitafrenzy/sprites/lauch.png",
+  "/fajitafrenzy/sprites/manege.png",
+  "/fajitafrenzy/sprites/onion.png",
+  "/fajitafrenzy/sprites/stove.png",
+  "/fajitafrenzy/sprites/topf.png",
+  "/fajitafrenzy/sprites/monkey.png",
   // Add as many as you have in your /sprites folder
 ];
 
