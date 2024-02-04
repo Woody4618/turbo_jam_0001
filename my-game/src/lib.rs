@@ -31,7 +31,8 @@ turbo::init! {
         }>,
         recipe_collection: Vec<String>,
         score: u32,
-        lost_recipe_wrong: bool
+        lost_recipe_wrong: bool,
+        cannon_burst: u32,
     } = {
         Self {
             frame: 0,
@@ -47,7 +48,8 @@ turbo::init! {
             foods: vec![],
             recipe_collection: [].to_vec(),
             score: 0,
-            lost_recipe_wrong: false
+            lost_recipe_wrong: false,
+            cannon_burst: 99999999,
         }
     }
 }
@@ -69,6 +71,7 @@ impl GameState {
             recipe_collection: [].to_vec(),
             score: 0,
             lost_recipe_wrong: false,
+            cannon_burst: 99999999,
         }
     }
 }
@@ -102,7 +105,7 @@ turbo::go! {
         // Create a new pancake with random attributes
         let food = Food {
             slot_pos_x: ((rand() % 5) as f32 + 1.0)  * stove_slot,
-            start_pos_x: ( 2 +total_stoves ) as f32 * stove_slot,
+            start_pos_x: ( 2 +total_stoves ) as f32 * stove_slot + 20.0,
             y: 200.0,
             fly_up: true,
             vel: (rand() % 3 + 1) as f32,
@@ -110,6 +113,7 @@ turbo::go! {
             sprite: food_sprites[(rand() % food_sprites.len() as u32) as usize].to_string()
         };
         state.foods.push(food);
+        state.cannon_burst = state.frame;
     }
 
     // Update pancake positions and check for collisions with the cat
@@ -151,7 +155,7 @@ turbo::go! {
 
             state.recipe_collection.push(food.sprite.to_string());
 
-            if state.recipe_collection.len().eq(&food_sprites.len()) {
+            if (state.recipe_collection.len().eq(&food_sprites.len()) && !state.lost_recipe_wrong) {
                 state.fajita_made_in_frame = state.frame;
                 state.score += 100;
             }
@@ -184,7 +188,6 @@ turbo::go! {
     text!(&format!("Recipe: Fajitas-> 1 Onion 1Beef 1 Potatoe 1 lauch"), x = 10, y = 40, font = Font::L, color = 0xffffffff); // Render the score
 
     sprite!("clown",  state.clown_pos_x as i32, state.clown_pos_y as i32 - 145);
-    //circ!(x = state.clown_pos_x as i32, y = (state.clown_pos_y - 100.0) as i32, d = state.clown_r as u32, fill = 0xdba463ff); // Render the pancakes
     circ!(x = clown_center.0 as i32, y = (clown_center.1) as i32, d = state.clown_r as u32, fill = 0xdba463ff); // Render the pancakes
 
     //text!(&format!("center {0}", clown_center.1 - 100.0), x = 10, y = 60, font = Font::L, color = 0xffffffff); // Render the score
@@ -195,11 +198,30 @@ turbo::go! {
         sprite!("stove", (i as f32 * stove_slot) as i32, height - 10);
     }
 
-    sprite!("canon", width - 120, height - 120);
+    if state.cannon_burst + 4 >= state.frame && state.cannon_burst < state.frame  {
+        sprite!("canon", width - 112, height - 112);
+    } else {
+        sprite!("canon", width - 120, height - 120);
+    }
+
     sprite!("monkey", width - 60, height - 120);
 
     // Debug
     //text!(&format!("{:#?}", state), y = 24);
+
+    let mut counter = 0;
+    for food in &food_sprites {
+        let mut isCollected: bool = false;
+        for food_collected_food in &state.recipe_collection {
+            if food.eq(&food_collected_food.to_string()) {
+                isCollected = true;
+            }
+        }
+        if !isCollected {
+            counter += 1;
+            sprite!(food, x = 10 ,y = (15.0 + 30.0 * (counter as f32)) as i32);
+        }
+    }
 
     // Draw the falling pancakes
     for food in &state.foods {

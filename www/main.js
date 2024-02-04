@@ -5,10 +5,10 @@ import initTurbo, * as turbo from "/fajitafrenzy/pkg/turbo_genesis_host_wasm_bin
 /**************************************************/
  
 // Game metadata
-const APP_NAME = "My Turbo Game";
+const APP_NAME = "Fajity Frency";
 const APP_VERSION = "0.0.0";
-const APP_AUTHOR = "Leeroy Jenkins";
-const APP_DESCRIPTION = "An awesome game about awesomeness";
+const APP_AUTHOR = "Jonas Hahn, Eike Decker";
+const APP_DESCRIPTION = "Fajitas are life! Fajitas are Freedom! Fajitas are Fajitas!";
 
 // NOTE: You can find your builds in your rust crate in one of two places:
 // - target/wasm32-unknown-unknown/release/[package_name].wasm
@@ -32,6 +32,7 @@ const SPRITES = [
   "/fajitafrenzy/sprites/stove.png",
   "/fajitafrenzy/sprites/topf.png",
   "/fajitafrenzy/sprites/monkey.png",
+  "/fajitafrenzy/sprites/potatoe.png",
   // Add as many as you have in your /sprites folder
 ];
 
