@@ -86,7 +86,7 @@ turbo::go! {
     let total_stoves = 5;
     let stove_slot = 60.0;
 
-    sprite!("manege_dark", 0, 0);
+    sprite!("manegedark", 0, 0);
 
     if gamepad(0).left.just_released() && state.topf_slot > 0.0 {
         state.topf_slot -= 1.0;

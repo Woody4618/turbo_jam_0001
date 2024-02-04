@@ -28,7 +28,7 @@ const SPRITES = [
   "/fajitafrenzy/sprites/lattice.png",
   "/fajitafrenzy/sprites/lauch.png",
   "/fajitafrenzy/sprites/manege.png",
-  "/fajitafrenzy/sprites/manege_dark.png",
+  "/fajitafrenzy/sprites/manegedark.png",
   "/fajitafrenzy/sprites/onion.png",
   "/fajitafrenzy/sprites/stove.png",
   "/fajitafrenzy/sprites/topf.png",
