@@ -86,7 +86,7 @@ turbo::go! {
     let total_stoves = 5;
     let stove_slot = 60.0;
 
-    sprite!("manege", 0, 0);
+    sprite!("manege_dark", 0, 0);
 
     if gamepad(0).left.just_released() && state.topf_slot > 0.0 {
         state.topf_slot -= 1.0;
@@ -108,7 +108,7 @@ turbo::go! {
             start_pos_x: ( 2 +total_stoves ) as f32 * stove_slot + 20.0,
             y: 200.0,
             fly_up: true,
-            vel: (rand() % 3 + 1) as f32,
+            vel: (rand() % 2 + 2) as f32,
             radius: (1) as f32,
             sprite: food_sprites[(rand() % food_sprites.len() as u32) as usize].to_string()
         };
@@ -209,18 +209,24 @@ turbo::go! {
     // Debug
     //text!(&format!("{:#?}", state), y = 24);
 
-    let mut counter = 0;
-    for food in &food_sprites {
-        let mut isCollected: bool = false;
-        for food_collected_food in &state.recipe_collection {
-            if food.eq(&food_collected_food.to_string()) {
-                isCollected = true;
+    if (state.score < 500) {
+        let mut counter = 0;
+        for food in &food_sprites {
+            let mut isCollected: bool = false;
+            for food_collected_food in &state.recipe_collection {
+                if food.eq(&food_collected_food.to_string()) {
+                    isCollected = true;
+                }
+            }
+            if !isCollected {
+                counter += 1;
+                sprite!(food, x = 10 ,y = (15.0 + 30.0 * (counter as f32)) as i32);
             }
         }
-        if !isCollected {
-            counter += 1;
-            sprite!(food, x = 10 ,y = (15.0 + 30.0 * (counter as f32)) as i32);
-        }
+    } else {
+        text!(&format!("hard"), x = 10, y = 120, font = Font::L, color = 0xffff0000);
+        text!(&format!("core"), x = 10, y = 128, font = Font::L, color = 0xffff0000);
+        text!(&format!("mode"), x = 10, y = 136, font = Font::L, color = 0xffff0000);
     }
 
     // Draw the falling pancakes
